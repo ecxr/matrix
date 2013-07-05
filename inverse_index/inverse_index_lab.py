@@ -8,11 +8,11 @@ def movie_review(name):
     Output: a string (one of the review options), selected at random using randint
     """
     review_options = ["See it!", "A gem!", "Ideological claptrap!"]
-    return ...
+    return review_options[randint(0, len(review_options)-1)]
 
 ## Tasks 2 and 3 are in dictutil.py
 
-## Task 4    
+## Task 4
 def makeInverseIndex(strlist):
     """
     Input: a list of documents as strings
@@ -22,7 +22,15 @@ def makeInverseIndex(strlist):
     Note that to test your function, you are welcome to use the files stories_small.txt
       or stories_big.txt included in the download.
     """
-    return ...
+    docs = list(enumerate(strlist))
+    dict = {}
+    for (pos, doc) in docs:
+        words = doc.split()
+        for word in words:
+            if word not in dict:
+                dict[word] = set()
+            dict[word].add(pos)
+    return dict
 
 ## Task 5
 def orSearch(inverseIndex, query):
@@ -30,7 +38,12 @@ def orSearch(inverseIndex, query):
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of document ids that contain _any_ of the specified words
     """
-    return ...
+    out = set()
+    for word in inverseIndex.keys():
+        for q in query:
+            if q == word:
+                out = out.union(inverseIndex[word])
+    return out
 
 ## Task 6
 def andSearch(inverseIndex, query):
@@ -38,4 +51,15 @@ def andSearch(inverseIndex, query):
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of all document ids that contain _all_ of the specified words
     """
-    return ... 
+    out = set()
+    for word in query:
+        if word in inverseIndex:
+            if len(out) == 0:
+                out = inverseIndex[word]
+            else:
+                out = out.intersection(inverseIndex[word])
+    return out
+
+# f = open('stories_small.txt')
+# stories = list(f)
+# makeInverseIndex(stories)
