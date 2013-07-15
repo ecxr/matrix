@@ -95,22 +95,22 @@ identity_dict = { k:k for k in D }
 ## Task 25
 base = 10
 digits = set(range(10))
-representation_dict = {...}
+#representation_dict = {...}
 
 ## Task 26
 d = {0:1000.0, 1:1200.50, 2:990}
 names = ['Larry', 'Curly', 'Moe']
-listdict2dict = { ... }
+#listdict2dict = { ... }
 
 ## Task 27
-def nextInts(L): return [ ... ]
+#def nextInts(L): return [ ... ]
 
 ## Task 28
-def cubes(L): return [ ... ] 
+#def cubes(L): return [ ... ] 
 
 ## Task 29
-def dict2list(dct, keylist): return [dct[key] for key in dct.keys()]
+def dict2list(dct, keylist): return [ dct[key] for key in dct.keys() ]
 
 ## Task 30 
-def list2dict(L, keylist): return { ... } 
+def list2dict(L, keylist): return { keylist[k]:L[k] for k in range(len(keylist)) }
 
