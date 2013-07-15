@@ -37,12 +37,15 @@ def orSearch(inverseIndex, query):
     """
     Input: an inverse index, as created by makeInverseIndex, and a list of words to query
     Output: the set of document ids that contain _any_ of the specified words
+
+    >>> orSearch({'d': {1}, 'b': {0, 2, 3}, 'c': {0, 1, 2, 3}, 'x': {3}, 'a': {0, 1, 2}}, ['a', 'b']
+    >>> {0, 1, 2, 3}
     """
+
     out = set()
-    for word in inverseIndex.keys():
-        for q in query:
-            if q == word:
-                out = out.union(inverseIndex[word])
+    for q in query:
+        if q in inverseIndex:
+            out = out.union(inverseIndex[q])
     return out
 
 ## Task 6
@@ -59,6 +62,10 @@ def andSearch(inverseIndex, query):
             else:
                 out = out.intersection(inverseIndex[word])
     return out
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
 # f = open('stories_small.txt')
 # stories = list(f)
