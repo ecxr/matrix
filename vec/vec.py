@@ -1,35 +1,53 @@
 def getitem(v,d):
     "Returns the value of entry d in v"
     assert d in v.D
-    pass
+    if d not in v.f:
+        return 0 
+    return v.f[d]
 
 def setitem(v,d,val):
     "Set the element of v with label d to be val"
     assert d in v.D
-    pass
+    v.f[d] = val
 
 def equal(u,v):
     "Returns true iff u is equal to v"
     assert u.D == v.D
-    pass
+    for k1 in u.f.keys():
+        if k1 in v.f and v.f[k1] != u.f[k1]:
+            return False
+        if k1 not in v.f and u.f[k1] != 0:
+            return False
+    for k2 in v.f.keys():
+        if k2 in u.f and u.f[k2] != v.f[k2]:
+            return False
+        if k2 not in u.f and v.f[k2] != 0:
+            return False
+    return True
 
 def add(u,v):
     "Returns the sum of the two vectors"
     assert u.D == v.D
-    pass
+    newVec = Vec(u.D, u.f.copy())
+    for k in v.f.keys():
+        if k not in newVec.f:
+            newVec.f[k] = v.f[k]
+        else:
+            newVec.f[k] += v.f[k]
+    return newVec
 
 def dot(u,v):
     "Returns the dot product of the two vectors"
     assert u.D == v.D
-    pass
+    return sum([getitem(u,i) * getitem(v,i) for i in u.D])
 
 def scalar_mul(v, alpha):
     "Returns the scalar-vector product alpha times v"
-    pass
+    return Vec(v.D, {key:val*alpha for (key,val) in v.f.items()})
 
 def neg(v):
     "Returns the negation of a vector"
-    pass
+    return Vec(v.D, {key:-val for (key,val) in v.f.items()})
 
 ##### NO NEED TO MODIFY BELOW HERE #####
 class Vec:
